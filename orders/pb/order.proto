@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "github.com/surajpatil-dev/go-kit-grpc-ecom/orders";
+
+  
+message Order {
+  string id = 1;
+  string customer_id = 2;
+  int64 created_on = 3;
+  repeated OrderItem order_items = 4;
+}
+
+
+message OrderItem {
+  string product_code = 1;
+  string name = 2;
+  double unit_price = 3;
+  int32 quantity = 4;
+}
+
+message CreateRequest {
+  Order order = 1;
+}
+
+message CreateResponse {}
+
+message GetByIDRequest {
+  string id = 1;
+}
+
+message GetByIDResponse {
+  Order order = 1;
+}
+
+message ChangeStatusRequest {
+  string id = 1;
+  string status = 2;
+}
+
+message ChangeStatusResponse {}
+
+service OrderService {
+
+  rpc Create(CreateRequest) returns (CreateResponse) {};
+	rpc GetByID(GetByIDRequest) returns (GetByIDResponse) {};
+	rpc ChangeStatus(ChangeStatusRequest) returns (ChangeStatusResponse) {};
+}
